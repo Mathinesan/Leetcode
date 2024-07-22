@@ -10,11 +10,9 @@ class Solution
     while (i >= 0 || j >= 0 || carry == 1) 
     {
       if(i >= 0)
-        carry += Character.getNumericValue(a.charAt(i));
-        i--;
+        carry += a.charAt(i--) - '0';
       if(j >= 0)
-        carry += Character.getNumericValue(b.charAt(j));
-        j--;
+        carry += b.charAt(j--) - '0';
       sb.append(carry % 2);
       carry /= 2;
     }
