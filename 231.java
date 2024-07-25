@@ -4,7 +4,7 @@ class Solution {
         // int num = (int)sqrt;
         // return num*num == n;
 
-        int i=1;
+        long i=1;
         while(i<n){
             i=i*2;
         }
