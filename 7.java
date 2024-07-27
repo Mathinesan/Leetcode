@@ -1,13 +1,16 @@
 class Solution {
     public int reverse(int x) {
         int res = 0;
-        boolean neg = x<0;
-        String str = String.valueOf(Math.abs(x));
-        StringBuilder bd = new StringBuilder(str);
-        bd.reverse();
-
-        int i = Integer.parseInt(bd.toString());
-
-        return neg ? -i : i;
+        boolean isNegative = x < 0;
+        String strX = String.valueOf(Math.abs(x));
+        StringBuilder sb = new StringBuilder(strX).reverse();
+        
+        try {
+            res = Integer.parseInt(sb.toString());
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+        
+        return isNegative ? -res : res;       
     }
 }
