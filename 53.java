@@ -1,20 +1,11 @@
 class Solution {
     public int maxSubArray(int[] nums) {
-        //ArrayList<Intger> num = new ArrayList<>();
-        int max = 0;
-        int sum=0;
-        if(nums.length==1){
-            return nums[0];
-        }
-        for(int i=0;i<nums.length;i++){
+        int curr = nums[0];
+        int max = nums[0];
 
-            for(int j=i;j<=i;j++){
-                for(int k=)
-                sum+=nums[j];
-            }
-            if(max<sum){
-                max=sum;
-            }
+        for(int i=1;i<nums.length;i++){
+            curr = Math.max(nums[i],nums[i]+curr);
+            max = Math.max(max,curr);
         }
         return max;
     }
