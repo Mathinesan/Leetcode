@@ -3,6 +3,8 @@ class Solution {
         if (x < 0) {
             return false;
         }
+         // String str = Integer.toString(x);
+        // String str = String.valueOf(x);
         String str = Integer.toString(x);
         StringBuilder bd = new StringBuilder(str);
         bd.reverse();
