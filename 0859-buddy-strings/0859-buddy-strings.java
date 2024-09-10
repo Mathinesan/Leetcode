@@ -1,35 +1,35 @@
-class Solution {
-    
+public class Solution {
+
     public boolean buddyStrings(String s, String goal) {
-        if (s.length() != goal.length()) {
-            return false;
-        }
+        // Check if lengths are different
+        if (s.length() != goal.length()) return false;
 
+        // Case 1: The strings are the same
         if (s.equals(goal)) {
-            HashSet<Character> set = new HashSet<>();
-            for (char c: s.toCharArray()) {
-                if (!set.add(c)) {
-                    return true;
+            // Check for at least one duplicate character
+            Set<Character> seen = new HashSet<>();
+            for (char c : s.toCharArray()) {
+                if (!seen.add(c)) {
+                    return true; // Duplicate found
                 }
             }
-            return false;
+            return false; // No duplicates found
         }
 
-        int dif = 0;
-        Character swapS = null;
-        Character swapG = null;
+        // Case 2: The strings are different
+        int[] diff = new int[2];
+        int count = 0;
         for (int i = 0; i < s.length(); i++) {
-            char sChar = s.charAt(i);
-            char gChar = goal.charAt(i);
-            if (sChar != gChar) {
-                if (dif == 2 || (dif == 1 && (swapS != gChar || swapG != sChar))) {
-                    return false;
+            if (s.charAt(i) != goal.charAt(i)) {
+                if (count == 2) {
+                    return false; // More than two positions differ
                 }
-                swapS = sChar;
-                swapG = gChar;
-                dif++;
+                diff[count++] = i;
             }
         }
-        return dif == 2;
+
+        // Check if exactly two positions differ and swapping makes them equal
+        return count == 2 &&
+               s.charAt(diff[0]) == goal.charAt(diff[1]) &&
+               s.charAt(diff[1]) == goal.charAt(diff[0]);
     }
-}
