@@ -1,35 +1,34 @@
-class Solution {
-    
+import java.util.*;
+
+public class Solution {
+
     public boolean buddyStrings(String s, String goal) {
         if (s.length() != goal.length()) {
             return false;
         }
 
         if (s.equals(goal)) {
-            HashSet<Character> set = new HashSet<>();
-            for (char c: s.toCharArray()) {
-                if (!set.add(c)) {
-                    return true;
-                }
+            Set<Character> set = new HashSet<>();
+            for (char c : s.toCharArray()) {
+                set.add(c);
             }
-            return false;
+            return set.size() < s.length();
         }
 
-        int dif = 0;
-        Character swapS = null;
-        Character swapG = null;
+        List<Integer> diff = new ArrayList<>();
         for (int i = 0; i < s.length(); i++) {
-            char sChar = s.charAt(i);
-            char gChar = goal.charAt(i);
-            if (sChar != gChar) {
-                if (dif == 2 || (dif == 1 && (swapS != gChar || swapG != sChar))) {
-                    return false;
-                }
-                swapS = sChar;
-                swapG = gChar;
-                dif++;
+            if (s.charAt(i) != goal.charAt(i)) {
+                diff.add(i);
             }
         }
-        return dif == 2;
+
+        if (diff.size() == 2) {
+            int i1 = diff.get(0);
+            int i2 = diff.get(1);
+            return s.charAt(i1) == goal.charAt(i2) && 
+            s.charAt(i2) == goal.charAt(i1);
+        }
+
+        return false;
     }
 }
