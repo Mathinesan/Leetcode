@@ -1,20 +1,21 @@
 class Solution {
     public int countConsistentStrings(String allowed, String[] words) {
+        HashSet<Character> hash = new HashSet<Character>();
+        for(Character ch : allowed.toCharArray()){
+            hash.add(ch);
+        }
+
         int count = 0;
-        for(int i=0;i<allowed.length();i++){
-            char ch = allowed.charAt(i);
-            for(int j=0;j<words.length;j++){
-                String word = words[j];
-                for(int k=0;k<word.length();k++){
-                        if(word.charAt(k) == ch){
-                            continue;
-                        }
-                        else{
-                            count++;
-                            break;
-                        }
+        for(String str : words){
+            boolean consis = true;
+            for(Character ch1 : str.toCharArray()){
+                if(!hash.contains(ch1)){
+                    consis = false;
+                    break;
                 }
-               
+            }
+            if(consis){
+                count++;
             }
         }
         return count;
