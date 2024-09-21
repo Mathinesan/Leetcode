@@ -1,23 +1,22 @@
 class Solution {
-    public int divide(int dividend, int divisor) {
+  public int divide(long dividend, long divisor) {
+    // -2^{31} / -1 = 2^31 will overflow, so return 2^31 - 1.
+    if (dividend == Integer.MIN_VALUE && divisor == -1)
+      return Integer.MAX_VALUE;
 
-        if (dividend == Integer.MIN_VALUE && divisor == -1) {
-            return Integer.MAX_VALUE;
-        }
-        int sign = ((dividend > 0) ^ (divisor > 0)) ? -1 : 1;
+    final int sign = dividend > 0 ^ divisor > 0 ? -1 : 1;
+    long ans = 0;
+    long dvd = Math.abs(dividend);
+    long dvs = Math.abs(divisor);
 
-        int div = Math.abs(dividend);
-        int divisors = Math.abs(divisor);
-
-        int quo = 0;
-
-        while (div >= divisors) {
-            div = div - divisors;
-            quo++;
-        }
-        
-        if (sign == -1) quo = -1 * quo; 
-        return quo;
-
+    while (dvd >= dvs) {
+      long k = 1;
+      while (k * 2 * dvs <= dvd)
+        k *= 2;
+      dvd -= k * dvs;
+      ans += k;
     }
+
+    return sign * (int) ans;
+  }
 }
